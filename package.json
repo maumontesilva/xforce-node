@@ -1,18 +1,20 @@
 {
-  "name": "node-red-contrib-iem",
+  "name": "node-red-contrib-xforce-exchange",
   "version": "0.0.1",
-  "description": "Node-RED for Endpoint Manager",
+  "description": "Node-RED for X-Force Exchange",
   "dependencies": {
+    "async": "^1.5.2",
+    "express": "^4.13.4",
     "request": "^2.53.0",
     "xml2js": "^0.4.6"
   },
   "keywords": [
     "node-red",
-    "Endpoint Manager"
+    "X-Force Exchange"
   ],
   "node-red": {
     "nodes": {
-      "sample": "iem-node/endpoint-manager.js"
+      "sample": "xforce_node_red/xforce-node-red.js"
     }
   }
 }

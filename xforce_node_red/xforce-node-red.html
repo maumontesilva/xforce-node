@@ -1,0 +1,107 @@
+<!-- X-Force Exchange Input Node-->
+<script type="text/javascript">
+	RED.nodes.registerType('xfeIn', {
+		category: 'xforce',
+		color: '#a6bbcf',
+		defaults: {
+			server: {value: "", required:true, value:'api.xforce.ibmcloud.com'},
+			port: {value: "", required:true, value:443, validate:RED.validators.number()},
+			options: {value: "", required:true, value:"iprs"},
+      		name: {value:""}
+		},
+    	credentials: {
+    		user: {type:"text"},
+    		password: {type: "password"}
+    	},
+		inputs: 1,
+		outputs: 1,
+		icon: "icons/xforce.png",
+		label: function() {
+			return this.name||"X-Force Exchange";
+		}
+	});
+</script>
+
+<script type="text/x-red" data-template-name="xfeIn">
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> Node Name</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+	<div class="form-row">
+		<label for="node-input-server"><i class="icon-tag"></i> Server</label>
+		<input type="text" id="node-input-server" placeholder="Server">
+		<label for="node-input-port"><i class="icon-tag" ></i> Port</label>
+		<input type="text" id="node-input-port" placeholder="Port" style="width:50px">
+	</div>
+	<div class="form-row">
+		<label for="node-input-user"><i class="icon-tag"></i> User</label>
+		<input type="text" id="node-input-user" placeholder="User">
+		<label for="node-input-password"><i class="icon-tag"></i> Password</label>
+		<input type="password" id="node-input-password" placeholder="Password">
+	</div>
+	<div class="form-row">
+		<label for="node-input-options"><i class="icon-tag"></i> Options</label>		
+		<select id="node-input-options" placeholder="Options">
+			<option value="iprs">iprs</option>
+			<option value="urls">urls</option>
+			<option value="vulnerabilities">vulnerabilities</option>
+		</select> 
+	</div>
+</script>
+
+<script type="text/x-red" data-help-name="xfeIn">
+	<p>X-Force Exchange.</p>
+</script>
+
+<!-- X-Force Exchange Output Node -->
+<script type="text/javascript">
+    RED.nodes.registerType('xfeOut', {
+        category: 'xforce',
+        color: '#a6bbcf',
+        defaults: {
+            server: {value: "", required:true, value:'api.xforce.ibmcloud.com'},
+            port: {value: "", required:true, value:443, validate:RED.validators.number()},
+            options: {value: "", required:true, value:"casefiles"},
+            name: {value:""}
+        },
+        credentials: {
+            user: {type:"text"},
+            password: {type: "password"}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "icons/xforce.png",
+        label: function() {
+            return this.name||"X-Force Exchange";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="xfeOut">
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> Node Name</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+	<div class="form-row">
+		<label for="node-input-server"><i class="icon-tag"></i> Server</label>
+		<input type="text" id="node-input-server" placeholder="Server">
+		<label for="node-input-port"><i class="icon-tag" ></i> Port</label>
+		<input type="text" id="node-input-port" placeholder="Port" style="width:50px">
+	</div>
+	<div class="form-row">
+		<label for="node-input-user"><i class="icon-tag"></i> User</label>
+		<input type="text" id="node-input-user" placeholder="User">
+		<label for="node-input-password"><i class="icon-tag"></i> Password</label>
+		<input type="password" id="node-input-password" placeholder="Password">
+	</div>
+	<div class="form-row">
+		<label for="node-input-options"><i class="icon-tag"></i> Options</label>
+		<select id="node-input-options" placeholder="Options">
+			<option value="casefiles">casefiles</option>
+		</select>
+	</div>
+</script>
+
+<script type="text/x-red" data-help-name="xfeOut">
+	<p>X-Force Exchange.</p>
+</script>
