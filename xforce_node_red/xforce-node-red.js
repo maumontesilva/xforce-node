@@ -4,6 +4,8 @@
 
 var async = require('async');
 var RestfulService = require('../restful/restful.service');
+var Log = require('log');
+var logger = new Log('info');
 
 var xfeEndpoints = {
   iprs: 'ipr',
@@ -28,7 +30,6 @@ module.exports = function(RED) {
 
         //Registering a listener on the input event to receive messages from the up-stream nodes in a flow.
         this.on('input', function(msg) {
-            //console.log('MAURO MSG: ', msg);
             //Setting the node status as running
             node.status({fill:"green",shape:"dot",text:"running"});
 
@@ -50,8 +51,6 @@ module.exports = function(RED) {
                     if(err) {
                         //Setting the node status as failed
                         node.status({fill:"red",shape:"dot",text:"failed"});
-
-                        //console.log('RESTFUL ERROR: ', error);
                     }
 
                     sendNodeResponse(node, requestResult);
@@ -80,11 +79,13 @@ module.exports = function(RED) {
             //Setting the node status as running
             node.status({fill:"green",shape:"dot",text:"running"});
 
-            //console.log('MAURO CONFIG: ', config.server, config.port, username, password);
+            logger.debug('config ', config.server, config.port, username);
             var restfulService = new RestfulService('https', config.server, config.port, username, password);
             async.waterfall([
                 function(callback) {
-                    //console.log('MAURO CONFIG 01 : ', xfeEndpoints[config.options], msg.payload);
+                    logger.debug('config.options: ', config.options);
+                    logger.debug('xfeEndpoints[config.options]: ', xfeEndpoints[config.options]);
+                    logger.debug('msg.payload: ', msg.payload);
                     restfulService.sendRequest('POST', xfeEndpoints[config.options], msg.payload, function(error, result) {
                         if(error) {
                             return callback(error);
@@ -93,7 +94,6 @@ module.exports = function(RED) {
                                 return callback(result);
                             }
 
-                            //console.log('MAURO OK STEP1: ', JSON.parse(result).caseFileID);
                             return callback(null, JSON.parse(result).caseFileID);
                         }
                     });
@@ -104,14 +104,12 @@ module.exports = function(RED) {
                         if(error) {
                             return callback(error);
                         } else {
-                            //console.log('MAURO OK STEP2: ', result);
                             return callback(null, result);
                         }
                     });
                 }
             ], function(err, result) {
                if(err) {
-                   console.log('MAURO ERR ', err);
                    //Setting the node status as failed
                    node.status({fill:"red",shape:"dot",text:"failed"});
                } else {
@@ -142,7 +140,6 @@ module.exports = function(RED) {
 function sendNodeResponse(node, result) {
     var msg = {};
 
-    //console.log('RESTFUL OK: ', result);
     msg.payload = result;
     //Setting the node status as ready
     node.status({fill:"blue",shape:"dot",text:"ready"});

@@ -1,10 +1,12 @@
 {
-  "name": "node-red-contrib-xforce-exchange",
-  "version": "0.0.1",
+  "name": "xforce-node",
+  "version": "1.0.2",
+  "author": "maumontesilva@gmail.com",
   "description": "Node-RED for X-Force Exchange",
   "dependencies": {
     "async": "^1.5.2",
     "express": "^4.13.4",
+    "log": "^1.4.0",
     "request": "^2.53.0",
     "xml2js": "^0.4.6"
   },
